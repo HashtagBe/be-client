@@ -1,0 +1,44 @@
+#!/usr/bin/env node
+
+'use strict';
+
+const repl = require('repl');
+const q = require('querystring');
+const axios = require('axios');
+
+// Add a request interceptor
+const requestInterceptor = function (config) {
+  console.log("Request Url: ", config.url);
+  console.log("Request Data: ", config.data);
+  return config;
+};
+
+// Add a response interceptor
+const responseInterceptor = function (response) {
+  console.log(response.data)
+  return response;
+};
+
+const errorInterceptor = function (error) {
+  console.log(error.data);
+  return Promise.reject(error);
+}
+
+const packageInfo = require('./package.json');
+console.log(`Starting snoode v${packageInfo.version} repl`);
+
+global.btoa = require('btoa');
+global.XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
+const BeClient = require('./dist/BeClient.js');
+const api = new BeClient({
+  network: '',
+  networkAccessToken: '',
+  requestInterceptor: requestInterceptor,
+  responseInterceptor: responseInterceptor,
+  errorInterceptor: errorInterceptor,
+});
+
+const local = repl.start('$> ');
+
+local.context.api = api;

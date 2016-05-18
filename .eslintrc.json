@@ -1,0 +1,18 @@
+{
+  "parser": "babel-eslint",
+  "rules": {
+    "arrow-body-style": 0
+  },
+  "globals": {
+    "document": false,
+    "escape": false,
+    "navigator": false,
+    "unescape": false,
+    "window": false,
+    "describe": true,
+    "before": true,
+    "it": true,
+    "expect": true,
+    "sinon": true
+  }
+}
