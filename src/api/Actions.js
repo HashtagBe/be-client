@@ -1,11 +1,10 @@
 export default class Actions {
-  constructor(client, network) {
+  constructor(client) {
     this._client = client;
-    this._network = network;
   }
 
   create(action, params) {
-    return this._client.post(`/${this._network}/actions/${action}`, params)
+    return this._client.post(`/actions/${action}`, params)
     .then(json => json.data);
   }
 

@@ -6,19 +6,10 @@ const DEFAULT_ORIGIN = 'https://network.hashtag.be';
 
 const ACCESS_TOKEN_HEADER = 'X-Be-Access-Token';
 
-function createAuthorizationToken(network, token) {
-  return btoa(`${network}:${token}`);
-}
-
 class BeClient {
   constructor(config, tokenStorage) {
-    const networkAuth = createAuthorizationToken(config.network, config.networkAccessToken);
-
     this._client = axios.create({
       baseURL: `${config.origin || DEFAULT_ORIGIN}/api/v3/`,
-      headers: {
-        Authorization: `Basic ${networkAuth}`,
-      },
     });
 
     if (config.requestInterceptor) this._client.interceptors.request.use(config.requestInterceptor, config.errorInterceptor);
@@ -27,16 +18,15 @@ class BeClient {
     this._tokenStorage = tokenStorage;
     if (tokenStorage && tokenStorage.get()) this.authenticate(tokenStorage.get());
 
-    this.interests = new Interests(this._client, config.network);
-    this.fixedInterests = new FixedInterests(this._client, config.network);
-    this.widgets = new Widgets(this._client, config.network);
+    this.interests = new Interests(this._client);
+    this.widgets = new Widgets(this._client);
     this.me = new Me(this._client);
-    this.actions = new Actions(this._client, config.network);
+    this.actions = new Actions(this._client);
   }
 
   authenticate(token) {
     if (this._tokenStorage) this._tokenStorage.set(token);
-    this._client.defaults.headers[ACCESS_TOKEN_HEADER] = token;
+    this._client.defaults.headers = { [ACCESS_TOKEN_HEADER]: token };
     return Promise.resolve();
   }
 

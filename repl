@@ -10,6 +10,7 @@ const axios = require('axios');
 const requestInterceptor = function (config) {
   console.log("Request Url: ", config.url);
   console.log("Request Data: ", config.data);
+  console.log("Request Headers: ", config.headers);
   return config;
 };
 
@@ -20,20 +21,18 @@ const responseInterceptor = function (response) {
 };
 
 const errorInterceptor = function (error) {
-  console.log(error.data);
+  console.log(error.data || error);
   return Promise.reject(error);
 }
 
 const packageInfo = require('./package.json');
 console.log(`Starting snoode v${packageInfo.version} repl`);
 
-global.btoa = require('btoa');
 global.XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 const BeClient = require('./dist/BeClient.js');
 const api = new BeClient({
-  network: '',
-  networkAccessToken: '',
+  origin: 'http://localhost:3000',
   requestInterceptor: requestInterceptor,
   responseInterceptor: responseInterceptor,
   errorInterceptor: errorInterceptor,
