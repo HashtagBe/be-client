@@ -3,20 +3,21 @@ export default class Actions {
     this._client = client;
   }
 
-  create(action, params) {
-    return this._client.post(`/actions/${action}`, params)
+  create(action, { network, ...params }) {
+    const basePath = network ? `/${network}` : '';
+    return this._client.post(`${basePath}/actions/${action}`, params)
     .then(json => json.data);
   }
 
-  openWidget(widget_id) {
-    return this.create('open_widget', { widget_id });
+  openWidget({ widget_id, network }) {
+    return this.create('open_widget', { network, widget_id });
   }
 
-  clickWidgetInterest(interest, widget_id) {
-    return this.create('click_widget_interest', { interest, widget_id });
+  clickWidgetInterest({ interest, widget_id, network }) {
+    return this.create('click_widget_interest', { network, interest, widget_id });
   }
 
-  pageVisit(url, interests) {
-    return this.create('visit', { url, interests });
+  pageVisit(params) {
+    return this.create('visit', params);
   }
 }

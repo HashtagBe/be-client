@@ -6,6 +6,12 @@ const repl = require('repl');
 const q = require('querystring');
 const axios = require('axios');
 
+const tokenStorage = {
+  get: () => { console.log('Asked for token') },
+  set: (token) => { console.log(`Set token to ${token}`) },
+  clear: () => { console.log('Asked to clear token') },
+}
+
 // Add a request interceptor
 const requestInterceptor = function (config) {
   console.log("Request Url: ", config.url);
@@ -36,7 +42,7 @@ const api = new BeClient({
   requestInterceptor: requestInterceptor,
   responseInterceptor: responseInterceptor,
   errorInterceptor: errorInterceptor,
-});
+}, tokenStorage);
 
 const local = repl.start('$> ');
 
