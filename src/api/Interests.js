@@ -4,7 +4,7 @@ export default class Interests {
   }
 
   get(id, network) {
-    return this._client.get(`${network}/interests/${id}`)
+    return this._client.get(`${network}/interests/${encodeURIComponent(id)}`)
     .then(json => json.data.interest);
   }
 
