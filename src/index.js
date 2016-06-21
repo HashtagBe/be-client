@@ -7,7 +7,7 @@ const DEFAULT_ORIGIN = 'https://network.hashtag.be';
 const ACCESS_TOKEN_HEADER = 'X-Be-Access-Token';
 
 class BeClient {
-  constructor(config, tokenStorage) {
+  constructor(config = {}, tokenStorage) {
     this._client = axios.create({
       baseURL: `${config.origin || DEFAULT_ORIGIN}/api/v3/`,
     });
