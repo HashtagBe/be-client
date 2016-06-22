@@ -2,7 +2,7 @@ var webpack = require('webpack');
 var WebpackNotifierPlugin = require('webpack-notifier');
 
 module.exports = {
-  entry: './lib/index.js',
+  entry: './src/index.js',
   output: {
     filename: './dist/BeClient.js',
     libraryTarget: 'var',
