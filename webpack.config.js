@@ -5,7 +5,8 @@ module.exports = {
   entry: './lib/index.js',
   output: {
     filename: './dist/BeClient.js',
-    libraryTarget: 'umd',
+    libraryTarget: 'var',
+    library: 'BeClient',
   },
   module: {
     loaders: [
@@ -18,9 +19,6 @@ module.exports = {
     resolve: {
       extensions: ['', '.js', '.jsx'],
     },
-  },
-  externals: {
-    axios: 'axios',
   },
   plugins: [
     new WebpackNotifierPlugin(),

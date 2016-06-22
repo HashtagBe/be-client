@@ -4,7 +4,6 @@
 
 const repl = require('repl');
 const q = require('querystring');
-const axios = require('axios');
 
 const tokenStorage = {
   get: () => { console.log('Asked for token') },
@@ -37,6 +36,7 @@ console.log(`Starting snoode v${packageInfo.version} repl`);
 global.XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 const BeClient = require('./dist/BeClient.js');
+
 const api = new BeClient({
   origin: 'http://localhost:3000',
   requestInterceptor: requestInterceptor,
