@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { Interests, Widgets, Me, Actions, FixedInterests } from './api';
+import { Interests, Widgets, Me, Actions } from './api';
 
 const DEFAULT_ORIGIN = 'https://network.hashtag.be';
 
