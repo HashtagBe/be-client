@@ -9,9 +9,13 @@ export default function queryDegoodifier(query, join) {
   const filters = filterify(query);
   const apiQuery = {};
   if (query.limit) apiQuery.nwidgets = query.limit;
+  if (query.context_profile) apiQuery.context_profile = query.context_profile;
   if (query.type) apiQuery.widget_names = join ? query.type : [query.type];
   if (query.types) apiQuery.widget_names = join ? query.types.join(',') : query.types;
+  if (query.excluded_ids) apiQuery.excluded_ids = join ? query.excluded_ids.join(',') : query.excluded_ids;
+
   if (filters) apiQuery.filters = join ? filters.join(',') : filters;
+
   if (query.interest) apiQuery.interests = join ? query.interest : [query.interest];
   if (query.interests) apiQuery.interests = join ? query.interests.join(',') : query.interests;
   // TODO: Don't do this
