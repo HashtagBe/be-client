@@ -35,7 +35,7 @@ console.log(`Starting snoode v${packageInfo.version} repl`);
 
 global.XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
-const BeClient = require('./dist/BeClient.js');
+const BeClient = require('./lib/index.js');
 
 const api = new BeClient({
   origin: 'http://localhost:3000',
