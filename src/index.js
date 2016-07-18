@@ -5,11 +5,13 @@ import { Interests, Widgets, Me, Actions } from './api';
 const DEFAULT_ORIGIN = 'https://network.hashtag.be';
 
 const ACCESS_TOKEN_HEADER = 'X-Be-Access-Token';
+const CLIENT_TYPE_HEADER = 'X-Be-Client-Type';
 
 class BeClient {
   constructor(config = {}, tokenStorage) {
     this._client = axios.create({
       baseURL: `${config.origin || DEFAULT_ORIGIN}/api/v3/`,
+      headers: { [CLIENT_TYPE_HEADER]: config.type },
     });
 
     if (config.requestInterceptor) this._client.interceptors.request.use(config.requestInterceptor, config.errorInterceptor);
@@ -26,7 +28,7 @@ class BeClient {
 
   authenticate(token) {
     if (this._tokenStorage) this._tokenStorage.set(token);
-    this._client.defaults.headers = { [ACCESS_TOKEN_HEADER]: token };
+    this._client.defaults.headers[ACCESS_TOKEN_HEADER] = token;
     return Promise.resolve();
   }
 
