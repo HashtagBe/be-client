@@ -21,6 +21,7 @@
     "build:dist": "NODE_ENV=production webpack --progress --colors --config webpack.config.js",
     "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib",
     "repl": "./repl",
+    "start": "webpack --progress --colors --watch --config webpack.config.js",
     "lint": "eslint src/**/*.js"
   },
   "dependencies": {
