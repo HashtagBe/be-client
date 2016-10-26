@@ -1,6 +1,12 @@
 import axios from 'axios';
 
-import { Interests, Widgets, Me, Actions } from './api';
+import {
+  Interests,
+  Widgets,
+  Me,
+  Actions,
+  FixedInterests
+} from './api';
 
 const DEFAULT_ORIGIN = 'https://network.hashtag.be';
 
@@ -24,6 +30,7 @@ class BeClient {
     this.widgets = new Widgets(this._client);
     this.me = new Me(this._client);
     this.actions = new Actions(this._client);
+    this.fixedInterests = new FixedInterests(this._client);
   }
 
   authenticate(token) {
